@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">PartDPO</title>
+  <rect width="64" height="64" rx="12" fill="#fff"/>
+  <path fill="#28778a" fill-rule="evenodd" d="M7 12h12c8 0 12 4 12 12s-4 12-12 12h-4v16H7V12zm8 8v8h4c3 0 4-1 4-4s-1-4-4-4h-4z"/>
+  <path fill="#a95b49" fill-rule="evenodd" d="M35 12h9c10 0 15 7 15 20s-5 20-15 20h-9V12zm8 8v24h1c5 0 7-4 7-12s-2-12-7-12h-1z"/>
+</svg>

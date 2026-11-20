@@ -1,0 +1,46 @@
+{
+ "objects": [
+  {
+   "name": "Hatted figurine",
+   "input": "assets/models/figurine_input.jpg",
+   "baseline": {
+    "parts": 5,
+    "assembled": "assets/models/figurine_partcrafter_assembled.glb",
+    "exploded": "assets/models/figurine_partcrafter_exploded.glb"
+   },
+   "ours": {
+    "parts": 5,
+    "assembled": "assets/models/figurine_ours_assembled.glb",
+    "exploded": "assets/models/figurine_ours_exploded.glb"
+   }
+  },
+  {
+   "name": "Valve",
+   "input": "assets/models/valve_input.jpg",
+   "baseline": {
+    "parts": 7,
+    "assembled": "assets/models/valve_partcrafter_assembled.glb",
+    "exploded": "assets/models/valve_partcrafter_exploded.glb"
+   },
+   "ours": {
+    "parts": 7,
+    "assembled": "assets/models/valve_ours_assembled.glb",
+    "exploded": "assets/models/valve_ours_exploded.glb"
+   }
+  },
+  {
+   "name": "Spider-Man minifigure",
+   "input": "assets/models/spider_input.png",
+   "baseline": {
+    "parts": 8,
+    "assembled": "assets/models/spider_partcrafter_assembled.glb",
+    "exploded": "assets/models/spider_partcrafter_exploded.glb"
+   },
+   "ours": {
+    "parts": 8,
+    "assembled": "assets/models/spider_ours_assembled.glb",
+    "exploded": "assets/models/spider_ours_exploded.glb"
+   }
+  }
+ ]
+}

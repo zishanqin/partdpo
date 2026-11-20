@@ -1,0 +1,255 @@
+{
+  "rotationDegreesPerSecond": 36,
+  "objects": [
+    {
+      "id": "spider",
+      "name": "Spider-Man minifigure",
+      "input": "assets/models/spider_input.png",
+      "parts": 8,
+      "model": "assets/models/spider_ours_assembled.glb",
+      "partScale": 0.6005703136324883,
+      "partModels": [
+        {
+          "index": 1,
+          "label": "Part 1",
+          "model": "assets/models/parts/spider-0.glb",
+          "extent": 0.2597382217645645,
+          "colour": [
+            0.3058823529411765,
+            0.4745098039215686,
+            0.6549019607843137
+          ]
+        },
+        {
+          "index": 2,
+          "label": "Part 2",
+          "model": "assets/models/parts/spider-1.glb",
+          "extent": 0.41214869171380997,
+          "colour": [
+            0.9490196078431372,
+            0.5568627450980392,
+            0.16862745098039217
+          ]
+        },
+        {
+          "index": 3,
+          "label": "Part 3",
+          "model": "assets/models/parts/spider-2.glb",
+          "extent": 0.4167206957936287,
+          "colour": [
+            0.8823529411764706,
+            0.3411764705882353,
+            0.34901960784313724
+          ]
+        },
+        {
+          "index": 4,
+          "label": "Part 4",
+          "model": "assets/models/parts/spider-3.glb",
+          "extent": 0.2593298554420471,
+          "colour": [
+            0.4627450980392157,
+            0.7176470588235294,
+            0.6980392156862745
+          ]
+        },
+        {
+          "index": 5,
+          "label": "Part 5",
+          "model": "assets/models/parts/spider-4.glb",
+          "extent": 0.4180281162261963,
+          "colour": [
+            0.34901960784313724,
+            0.6313725490196078,
+            0.30980392156862746
+          ]
+        },
+        {
+          "index": 6,
+          "label": "Part 6",
+          "model": "assets/models/parts/spider-5.glb",
+          "extent": 0.25855618342757225,
+          "colour": [
+            0.9294117647058824,
+            0.788235294117647,
+            0.2823529411764706
+          ]
+        },
+        {
+          "index": 7,
+          "label": "Part 7",
+          "model": "assets/models/parts/spider-6.glb",
+          "extent": 0.2598085440695286,
+          "colour": [
+            0.6901960784313725,
+            0.47843137254901963,
+            0.6313725490196078
+          ]
+        },
+        {
+          "index": 8,
+          "label": "Part 8",
+          "model": "assets/models/parts/spider-7.glb",
+          "extent": 0.6005703136324883,
+          "colour": [
+            1,
+            0.615686274509804,
+            0.6549019607843137
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figurine",
+      "name": "Hatted figurine",
+      "input": "assets/models/figurine_input.jpg",
+      "parts": 5,
+      "model": "assets/models/figurine_ours_assembled.glb",
+      "partScale": 1.05511474609375,
+      "partModels": [
+        {
+          "index": 1,
+          "label": "Part 1",
+          "model": "assets/models/parts/figurine-0.glb",
+          "extent": 0.4763696938753128,
+          "colour": [
+            0.07619,
+            0.1912,
+            0.38643
+          ]
+        },
+        {
+          "index": 2,
+          "label": "Part 2",
+          "model": "assets/models/parts/figurine-1.glb",
+          "extent": 1.05511474609375,
+          "colour": [
+            0.88792,
+            0.2705,
+            0.02416
+          ]
+        },
+        {
+          "index": 3,
+          "label": "Part 3",
+          "model": "assets/models/parts/figurine-2.glb",
+          "extent": 0.6480372399091721,
+          "colour": [
+            0.75294,
+            0.09531,
+            0.0999
+          ]
+        },
+        {
+          "index": 4,
+          "label": "Part 4",
+          "model": "assets/models/parts/figurine-3.glb",
+          "extent": 0.13113601505756378,
+          "colour": [
+            0.18116,
+            0.47353,
+            0.4452
+          ]
+        },
+        {
+          "index": 5,
+          "label": "Part 5",
+          "model": "assets/models/parts/figurine-4.glb",
+          "extent": 0.13086660206317902,
+          "colour": [
+            0.0999,
+            0.3564,
+            0.07819
+          ]
+        }
+      ]
+    },
+    {
+      "id": "valve",
+      "name": "Valve",
+      "input": "assets/models/valve_input.jpg",
+      "parts": 7,
+      "model": "assets/models/valve_ours_assembled.glb",
+      "partScale": 0.9573072195053101,
+      "partModels": [
+        {
+          "index": 1,
+          "label": "Part 1",
+          "model": "assets/models/parts/valve-0.glb",
+          "extent": 0.7065398693084717,
+          "colour": [
+            0.07619,
+            0.1912,
+            0.38643
+          ]
+        },
+        {
+          "index": 2,
+          "label": "Part 2",
+          "model": "assets/models/parts/valve-1.glb",
+          "extent": 0.6385401338338852,
+          "colour": [
+            0.88792,
+            0.2705,
+            0.02416
+          ]
+        },
+        {
+          "index": 3,
+          "label": "Part 3",
+          "model": "assets/models/parts/valve-2.glb",
+          "extent": 0.9573072195053101,
+          "colour": [
+            0.75294,
+            0.09531,
+            0.0999
+          ]
+        },
+        {
+          "index": 4,
+          "label": "Part 4",
+          "model": "assets/models/parts/valve-3.glb",
+          "extent": 0.36623619496822357,
+          "colour": [
+            0.18116,
+            0.47353,
+            0.4452
+          ]
+        },
+        {
+          "index": 5,
+          "label": "Part 5",
+          "model": "assets/models/parts/valve-4.glb",
+          "extent": 0.36926423758268356,
+          "colour": [
+            0.0999,
+            0.3564,
+            0.07819
+          ]
+        },
+        {
+          "index": 6,
+          "label": "Part 6",
+          "model": "assets/models/parts/valve-5.glb",
+          "extent": 0.6454923152923584,
+          "colour": [
+            0.84687,
+            0.58408,
+            0.0648
+          ]
+        },
+        {
+          "index": 7,
+          "label": "Part 7",
+          "model": "assets/models/parts/valve-6.glb",
+          "extent": 0.3396690897643566,
+          "colour": [
+            0.43415,
+            0.19462,
+            0.3564
+          ]
+        }
+      ]
+    }
+  ]
+}
