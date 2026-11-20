@@ -191,7 +191,9 @@ body:has(dialog[open]) { overflow: hidden; }
 .nowrap { white-space: nowrap; }
 @media (max-width: 480px) { .publication-title .nowrap { white-space: normal; } }
 .project-name { font-family: var(--title-font); font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin: 0 0 6px; }
-.brand-part, .brand-dpo { color: #000; }
+/* Match the two-colour PartDPO favicon and the method-figure palette. */
+.brand-part { color: #28778a; }
+.brand-dpo { color: #a95b49; }
 
 /* A simultaneous, constant-speed 3D teaser; paper figures stay in Results. */
 .hero { max-width: none; }
