@@ -7,6 +7,7 @@
   --muted: #6b6b6b;
   --link: #000;
   --accent: #ffdc00;
+  --banner-fill: rgba(255, 220, 0, .45);
   --pale: #fff3b0;
   --line: #d4d4d4;
   --soft: #f2f2f2;
@@ -35,7 +36,7 @@ button { font: inherit; }
 .skip-link:focus { top: 10px; }
 
 /* top navigation (PartGen keeps a slim centred bar above the title card) */
-.topnav { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 26px; padding: 2px 16px 0; font-size: var(--text-small); background: var(--accent); font-family: var(--title-font); font-weight: 600; }
+.topnav { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 26px; padding: 2px 16px 0; font-size: var(--text-small); background: var(--banner-fill); font-family: var(--title-font); font-weight: 600; }
 .topnav a { display: inline-flex; align-items: center; min-height: 44px; }
 .topnav a { color: var(--strong); }
 .topnav a { text-decoration: none; }
@@ -54,7 +55,7 @@ main { padding: 0 16px; }
 
 /* title card */
 .hero { text-align: center; padding: 0; border: 0; border-radius: 0; margin: 0 -16px 14px; }
-.hero-banner { background: var(--accent); padding: 6px 30px 20px; }
+.hero-banner { background: var(--banner-fill); padding: 6px 30px 20px; }
 .publication-title { font-family: var(--title-font); font-size: 2.3rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.12; color: #000; margin: 2px auto 1rem; max-width: 900px; }
 .publication-authors, .publication-affiliations { font-family: var(--title-font); }
 .publication-authors { font-size: .95rem; color: #000; line-height: 1.7; }
