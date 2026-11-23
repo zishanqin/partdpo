@@ -3,29 +3,28 @@
   const root = document.querySelector('#paper-comparisons');
   if (!root) return;
   const strip = root.querySelector('.comparison-strip');
+  const stage = root.querySelector('.comparison-stage');
   const cards = [...strip.querySelectorAll('.full-comparison')];
   const controls = root.querySelector('.comparison-controls');
   const pause = controls.querySelector('[data-comparison="pause"]');
   const count = controls.querySelector('.comparison-count');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const compact = window.matchMedia('(max-width: 640px)');
-  const speed = 32; // CSS pixels/second, independent of display refresh rate.
   let paused = reducedMotion.matches;
   let hovered = false;
   let visible = !('IntersectionObserver' in window);
   let frame = 0;
   let previousTime = null;
-  let edgeTime = 0;
   let position = strip.scrollLeft;
   let holdTime = 0;
   let transition = null;
   let activeIndex = 0;
+  let manualUntil = 0;
+  let keyboardFocus = false;
 
   const positions = () => cards.map(card => card.offsetLeft - cards[0].offsetLeft);
   const currentIndex = () => {
     const left = strip.scrollLeft + 2;
     const offsets = positions();
-    // A narrow screen can inspect every view within the same wide figure.
     let index = 0;
     offsets.forEach((offset, i) => { if (offset <= left) index = i; });
     if (strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 2) index = cards.length - 1;
@@ -35,15 +34,20 @@
     activeIndex = currentIndex();
     count.textContent = `${activeIndex + 1} / ${cards.length}`;
   };
-  const canPlay = () => !paused && !hovered && visible && !document.hidden;
+  const canPlay = () => !paused && !hovered && !keyboardFocus && visible && !document.hidden;
   function tick(time) {
     frame = 0;
     if (!canPlay()) return;
     const delta = previousTime === null ? 0 : Math.min(time - previousTime, 50);
     previousTime = time;
+    if (time < manualUntil) {
+      position = strip.scrollLeft;
+      frame = requestAnimationFrame(tick);
+      return;
+    }
     const max = strip.scrollWidth - strip.clientWidth;
-    if (max > 0 && compact.matches) {
-      // Phones show one complete four-view figure, held still before the next slide.
+    if (max > 0) {
+      // Hold a complete four-view figure before sliding to the next example.
       if (transition) {
         transition.elapsed += delta;
         const progress = Math.min(1, transition.elapsed / 600);
@@ -60,17 +64,6 @@
         }
       }
       strip.scrollLeft = position;
-    } else if (max > 0) {
-      // Pause at the two ends, then restart in reading order (no duplicate slides).
-      if (position >= max - 0.5) {
-        edgeTime += delta;
-        if (edgeTime >= 2500) { position = 0; edgeTime = -1500; }
-      } else if (edgeTime < 0) {
-        edgeTime = Math.min(0, edgeTime + delta);
-      } else {
-        position = Math.min(max, position + speed * delta / 1000);
-      }
-      strip.scrollLeft = position;
     }
     frame = requestAnimationFrame(tick);
   }
@@ -85,8 +78,7 @@
     if (canPlay()) frame = requestAnimationFrame(tick);
   }
   function stopForReading() {
-    paused = true;
-    edgeTime = 0;
+    manualUntil = performance.now() + 6500;
     holdTime = 0;
     transition = null;
     refresh();
@@ -102,18 +94,12 @@
   }
 
   controls.hidden = false;
-  const updateHelp = () => {
-    root.querySelector('#comparison-help').textContent = compact.matches
-      ? 'One example at a time. Auto-advances every 5 seconds; tap to enlarge.'
-      : 'Auto-scrolls left to right. Hover to pause; swipe or select an image to explore.';
-  };
-  updateHelp();
   pause.addEventListener('click', () => {
     paused = !paused;
-    edgeTime = 0;
+    manualUntil = 0;
     holdTime = 0;
     transition = null;
-    if (!paused && compact.matches) {
+    if (!paused) {
       const nearest = positions().reduce((best, value) => Math.abs(value - strip.scrollLeft) < Math.abs(best - strip.scrollLeft) ? value : best);
       strip.scrollLeft = nearest;
     }
@@ -122,24 +108,40 @@
   controls.querySelector('[data-comparison="previous"]').addEventListener('click', () => move(-1));
   controls.querySelector('[data-comparison="next"]').addEventListener('click', () => move(1));
   strip.addEventListener('scroll', updateCount, {passive: true});
-  strip.addEventListener('pointerenter', event => {
+  stage.addEventListener('pointerenter', event => {
     if (event.pointerType === 'mouse') { hovered = true; refresh(); }
   });
-  strip.addEventListener('pointerleave', () => { hovered = false; refresh(); });
-  // Manual interaction never fights the autoplay; Play explicitly resumes it.
+  stage.addEventListener('pointerleave', () => { hovered = false; refresh(); });
+  // Let manual navigation settle before autoplay resumes; keyboard focus pauses it.
   strip.addEventListener('pointerdown', stopForReading, {passive: true});
   strip.addEventListener('wheel', event => {
     if (Math.abs(event.deltaX) > 0 || event.shiftKey) stopForReading();
   }, {passive: true});
-  strip.addEventListener('focusin', stopForReading);
+  stage.addEventListener('focusin', event => {
+    keyboardFocus = event.target.matches(':focus-visible');
+    refresh();
+  });
+  stage.addEventListener('focusout', event => {
+    if (!stage.contains(event.relatedTarget)) { keyboardFocus = false; refresh(); }
+  });
   strip.addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', ' '].includes(event.key)) return;
-    stopForReading();
     if (event.target !== strip) return;
     event.preventDefault();
+    if (event.key === ' ') {
+      paused = !paused;
+      keyboardFocus = false;
+      manualUntil = 0;
+      refresh();
+      return;
+    }
+    stopForReading();
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      move(event.key === 'ArrowLeft' ? -1 : 1);
+      return;
+    }
     const max = strip.scrollWidth - strip.clientWidth;
-    const left = event.key === 'Home' ? 0 : event.key === 'End' ? max
-      : strip.scrollLeft + (event.key === 'ArrowLeft' ? -80 : event.key === 'ArrowRight' ? 80 : 0);
+    const left = event.key === 'Home' ? 0 : max;
     strip.scrollTo({left, behavior: 'instant'});
   });
   document.addEventListener('visibilitychange', refresh);
@@ -155,10 +157,8 @@
   }
   window.addEventListener('resize', () => {
     strip.scrollLeft = Math.min(positions()[activeIndex], strip.scrollWidth - strip.clientWidth);
-    edgeTime = 0;
     holdTime = 0;
     transition = null;
-    updateHelp();
     updateCount();
     refresh();
   });
