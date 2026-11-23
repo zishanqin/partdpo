@@ -309,6 +309,7 @@ html:not(.js) .gallery-loading { display: none; }
 .dataset-buttons button { background: #fff; color: #000; border: 1px solid #bdbdbd; border-radius: 999px; padding: 5px 16px; min-height: 40px; cursor: pointer; font: inherit; font-size: var(--text-small); }
 .dataset-buttons button[aria-pressed="true"] { background: var(--accent); border-color: #000; color: #000; font-weight: 700; }
 .dataset-heading { font-size: 1rem; margin: 16px 0 10px; color: var(--strong); }
+.js [data-dataset-panel] > .dataset-heading { display: none; }
 #results .results-table { font-size: var(--text-small); min-width: 570px; }
 #results .results-table caption { font-size: .875rem; }
 #results .results-table td.part-metric { background: #f6f6f6; }
