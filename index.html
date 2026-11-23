@@ -35,10 +35,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&amp;display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
-  <link rel="stylesheet" href="assets/site.css?v=lean-captions-2">
-  <script src="assets/site.js" defer></script>
+  <link rel="stylesheet" href="assets/site.css?v=lean-ui-3">
+  <script src="assets/site.js?v=lean-ui-3" defer></script>
   <script src="assets/comparisons.js?v=3" defer></script>
-  <script src="assets/gallery.js" defer></script>
+  <script src="assets/gallery.js?v=lean-ui-3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -97,14 +97,13 @@
       </div>
       <section class="showcase" id="showcase" aria-labelledby="showcase-title">
         <div class="showcase-toolbar">
-          <div><h2 id="showcase-title">Image to parts, in 3D</h2><p>Selected PartDPO outputs · one turn every 10 seconds</p></div>
+          <div class="showcase-heading"><h2 id="showcase-title">Image to parts, in 3D</h2><details class="viewer-info"><summary aria-label="About the displayed 3D meshes" title="About these meshes">i</summary><p>Simplified web meshes. <a href="#paper-comparisons">See paper renders</a>.</p></details></div>
           <button type="button" id="gallery-pause" class="small-control" hidden>Pause all</button>
         </div>
         <div id="gallery-grid" class="gallery-grid" aria-label="Selected 3D examples">
           <p class="gallery-loading" role="status">Loading the 3D gallery…</p>
         </div>
         <noscript><p>Enable JavaScript to explore the 3D models. <a href="#visual-results">Original paper comparisons</a> are available below.</p></noscript>
-        <p class="showcase-caption">One colour per part. <strong>Interact</strong> to rotate and zoom; <strong>Parts</strong> to explore components. Simplified web meshes; <a href="#paper-comparisons">paper renders below</a>.</p>
       </section>
 
     </section>
@@ -114,7 +113,7 @@
       <h2 class="title" id="abstract-title">Abstract</h2>
       <div class="content justified">
         <p>Part-aware 3D generation requires <strong>complete, well-separated semantic parts</strong>, not only globally plausible objects. Yet high-quality part annotations are scarce. We study whether DPO-style preference post-training can adapt a pretrained generator with <strong>limited part-annotated data and no architectural changes</strong>.</p>
-        <p>Each primary training example pairs two ordered noise realizations for the same ground-truth (GT) compositional latent. A <strong>reference-relative, target-part preference loss</strong> compares their flow errors, alongside target-part and all-part reconstruction losses. Only the diffusion transformer (DiT) is updated; the image encoder and 3D VAE stay frozen.</p>
+        <p>We combine a <strong>reference-relative, target-part preference loss</strong> with target-part and all-part ground-truth reconstruction. Only the diffusion transformer (DiT) is updated.</p>
         <p>The strongest held-out Objaverse setting uses <strong>363 target-part pairs from 50 objects</strong>, increasing matched-part F-score from 0.55 to 0.57 over pretrained PartCrafter and direct supervised fine-tuning. Gains depend on pair construction, target-part coverage and loss weighting, and are less consistent under distribution shift.</p>
       </div>
     </section>
@@ -166,7 +165,7 @@
       <div class="result-block" id="visual-results">
       <div class="viewer3d" id="viewer3d" hidden>
         <h3 class="result-heading">Interactive 3D comparison</h3>
-        <p class="viewer-lead">Drag either model to rotate both. Scroll or pinch to zoom.</p>
+        <p class="visually-hidden" id="viewer-help">Drag either model to rotate both. Scroll or pinch to zoom.</p>
         <div class="viewer-tabs" role="group" aria-label="Choose object"></div>
         <div class="viewer-grid">
           <figure class="viewer-input">
@@ -319,9 +318,9 @@
       <div class="result-block" id="pair-results">
         <h3 class="result-heading">The preference pairs matter</h3>
         <ul class="result-findings">
-          <li><strong>Focused supervision.</strong> The medium setting (363 pairs) gives the strongest Objaverse matched-part values in the metric-guided group: CD 0.2542 and FS 0.5725.</li>
-          <li><strong>Comparison quality.</strong> Seven screened human-ranked pairs improve all four Objaverse metrics over pretrained; the larger 41-pair set does not.</li>
-          <li><strong>Pair ordering.</strong> Reversing labels or substituting randomly ordered seeds reduces Objaverse matched-part quality relative to the original large setting.</li>
+          <li><strong>Metric-guided pairs.</strong> The 50-object setting (363 pairs) gives the best Objaverse matched-part results within this group.</li>
+          <li><strong>Human ranking.</strong> Seven screened pairs improve all four Objaverse metrics over pretrained; 41 pairs do not.</li>
+          <li><strong>Pair ordering.</strong> Reversed labels or randomly ordered seeds weaken matched-part results in the large Objaverse setting.</li>
         </ul>
         <details class="result-details"><summary>Full pair-construction results</summary><p class="metric-key"><strong>Bold</strong>: best in each column.</p><div data-dataset-switch><div class="dataset-buttons" hidden role="group" aria-label="Choose dataset for pair-data"><button type="button" aria-pressed="true" aria-controls="pair-data-0" data-dataset="0">Objaverse</button><button type="button" aria-pressed="false" aria-controls="pair-data-1" data-dataset="1">ABO</button><button type="button" aria-pressed="false" aria-controls="pair-data-2" data-dataset="2">ShapeNet</button></div><div id="pair-data-0" data-dataset-panel="0"><h4 class="dataset-heading">Objaverse</h4><div class="table-wrap" tabindex="0" role="region" aria-label="Objaverse, pair-construction results" data-source="Supplementary Table S1"><table class="results-table compact"><thead><tr><th scope="col">Setting</th><th scope="col">Obj-CD ↓</th><th scope="col">Obj-FS ↑</th><th scope="col">Part-CD ↓</th><th scope="col">Part-FS ↑</th></tr></thead><tbody><tr><th scope="row">Pretrained</th><td>0.2724</td><td>0.5680</td><td class="part-metric">0.2875</td><td class="part-metric">0.5453</td></tr>
 <tr><th scope="row">Metric · 7 objects / 56 pairs</th><td>0.2626</td><td>0.5328</td><td class="part-metric">0.3157</td><td class="part-metric">0.4545</td></tr>
@@ -392,7 +391,7 @@
       <img src="assets/images/ntu.png" alt="Nanyang Technological University Singapore" width="400" height="143" loading="lazy">
     </div>
     <p>Contact: <a href="mailto:zishan.qin@unsw.edu.au">zishan.qin@unsw.edu.au</a></p>
-    <p class="credit">The layout follows <a href="https://silent-chen.github.io/PartGen/" target="_blank" rel="noopener">PartGen</a> and the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project-page template (<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a>). Figures and results are from our paper.</p>
+    <p class="credit">The layout follows <a href="https://silent-chen.github.io/PartGen/" target="_blank" rel="noopener">PartGen</a> and the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project-page template (<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a>).</p>
   </footer>
 
   <dialog id="figure-dialog" aria-labelledby="figure-caption">
@@ -402,11 +401,11 @@
   </dialog>
   <dialog id="parts-dialog" class="parts-dialog" aria-labelledby="parts-dialog-title">
     <div class="parts-dialog-header">
-      <div><h2 id="parts-dialog-title">Predicted parts</h2><p>Each part rotates about its own centre. Choose Interact to drag any view.</p></div>
+      <h2 id="parts-dialog-title">Predicted parts</h2>
       <button type="button" class="small-control" id="close-parts">Close</button>
     </div>
-    <div class="parts-dialog-toolbar"><p id="parts-scale-note">Shared scale within this object; enlarged tiny parts are labelled.</p><button type="button" class="small-control" id="parts-motion">Pause rotation</button></div>
-    <div id="parts-grid" class="parts-grid"></div>
+    <div class="parts-dialog-toolbar"><p class="visually-hidden" id="parts-scale-note">Shared scale within this object; enlarged tiny parts are labelled.</p><button type="button" class="small-control" id="parts-motion">Pause rotation</button></div>
+    <div id="parts-grid" class="parts-grid" aria-describedby="parts-scale-note"></div>
   </dialog>
 </body>
 </html>

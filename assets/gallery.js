@@ -31,7 +31,7 @@
   const button = (text, label) => {
     const el = element('button', 'small-control', text);
     el.type = 'button';
-    if (label) el.setAttribute('aria-label', label);
+    if (label) { el.setAttribute('aria-label', label); el.title = label; }
     return el;
   };
 
@@ -76,6 +76,7 @@
       mv.toggleAttribute('camera-controls', interactive);
       inter.textContent = interactive ? 'Auto rotate' : 'Interact';
       inter.setAttribute('aria-label', `${interactive ? 'Auto rotate' : 'Interact with'} ${name}`);
+      inter.title = interactive ? 'Resume automatic rotation' : 'Drag to rotate; scroll or pinch to zoom';
       inter.setAttribute('aria-pressed', String(interactive));
       el.dataset.mode = interactive ? 'interactive' : spin ? 'rotating' : 'paused';
     };
@@ -113,7 +114,7 @@
     modalViews.forEach(v => v.dispose());
     modalViews = [];
     partsPaused = reduce.matches;
-    document.querySelector('#parts-dialog-title').textContent = `${obj.name} · ${obj.parts} predicted parts`;
+    document.querySelector('#parts-dialog-title').textContent = `${obj.name} · ${obj.parts} parts`;
     const reference = element('figure','part-cell assembled-reference');
     const refView = viewport({name:`${obj.name}, assembled reference`,src:obj.model,part:true});
     reference.append(element('figcaption','','Assembled reference'),refView.el,refView.inter);
@@ -127,7 +128,12 @@
       caption.append(colour,document.createTextNode(p.label));
       let mag=1;
       while(p.extent * mag < obj.partScale * 0.22 && mag < 16) mag *= 2;
-      if (mag > 1) caption.append(element('span','part-scale',`×${mag}`));
+      if (mag > 1) {
+        const scale = element('span','part-scale',`×${mag}`);
+        scale.title = `Enlarged ${mag}× relative to the shared part scale`;
+        scale.setAttribute('aria-label', scale.title);
+        caption.append(scale);
+      }
       const view = viewport({name:`${obj.name}, ${p.label}`,src:p.model,part:true,radius:obj.partScale*2.8,magnification:mag});
       cell.append(caption,view.el,view.inter);
       partsGrid.append(cell); modalViews.push(view);
