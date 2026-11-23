@@ -267,7 +267,7 @@ html:not(.js) .gallery-loading { display: none; }
 #visual-results { margin-top: 0; padding-top: 0; border-top: 0; }
 .result-heading { font-family: var(--title-font); margin: 0 0 8px; color: #000; font-size: var(--heading-subsection); line-height: 1.3; font-weight: 700; }
 .result-intro { margin: 0 0 12px; line-height: 1.55; }
-.evidence-note, .metric-key { color: var(--muted); font-size: var(--text-small); line-height: 1.5; margin: 10px 0 0; }
+.metric-key { color: var(--muted); font-size: var(--text-small); line-height: 1.5; margin: 10px 0 0; }
 .metric-key { margin: 0 0 10px; }
 .paper-comparisons { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 .comparison-stage { position: relative; }
